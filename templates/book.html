@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <a href="javascript:history.back()" class="text-gray-500 hover:text-gray-900 mb-4 inline-block transition-all">
+        &larr; Повернутися до списку
+    </a>
+
+    <div class="max-w-4xl mx-auto bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100">
+        <div class="h-80 md:h-96 w-full overflow-hidden">
+            {% if room.image %}
+            <img src="{{ room.image.url }}" class="w-full h-full object-cover" alt="{{ room.name }}">
+            {% else %}
+            <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
+                Немає зображення
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="p-8 md:p-12">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{{ room.name }}</h1>
+                    <div class="flex items-center text-gray-500">
+                        <i class="bi bi-geo-alt-fill me-1"></i> Україна, найкращі локації
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl font-black text-blue-600">{{ room.price }} <span class="text-lg text-gray-400 font-normal">грн/ніч</span></div>
+                </div>
+            </div>
+
+            <p class="text-gray-600 leading-relaxed text-lg mb-8">
+                {{ room.description }}
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                    <i class="bi bi-wifi fs-3 text-blue-500"></i>
+                    <p class="text-sm mt-2 font-medium">Wi-Fi</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                    <i class="bi bi-cup-hot fs-3 text-blue-500"></i>
+                    <p class="text-sm mt-2 font-medium">Сніданок</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                    <i class="bi bi-shield-check fs-3 text-blue-500"></i>
+                    <p class="text-sm mt-2 font-medium">Безпека</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                    <i class="bi bi-tv fs-3 text-blue-500"></i>
+                    <p class="text-sm mt-2 font-medium">Smart TV</p>
+                </div>
+            </div>
+
+            <button type="button" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all shadow-lg active:scale-95 text-lg" 
+                    data-bs-toggle="modal" data-bs-target="#bookModal{{ room.id }}">
+                Забронювати номер зараз
+            </button>
+        </div>
+    </div>
+</div>
+
+{% include 'window.html' %}
+{% endblock %}

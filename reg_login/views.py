@@ -8,5 +8,15 @@ def home(request):
     
     return render(request, 'index.html', {'title': 'Головна сторінка',
                                           'rooms': rooms})
+    
+    
+    
+def booking_page(request, room_id):
+    
+    room = Room.objects.get(id=room_id)
+    context = {"room":room}
+    
+    return render(request, 'book.html', context)
+    
 
 

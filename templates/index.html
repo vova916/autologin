@@ -1,29 +1,77 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
-<h1>{{title}}</h1>
-{% for room in rooms %}
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-        <div class="col-md-4">
-            {% if room.image %}
-            <img src="{{room.image.url}}" class="img-fluid rounded-start" alt="...">
-            {% endif %}
-
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">{{room.name}}</h5>
-                <p class="card-text">{{room.description}}.</p>
-                <p class="card-text"><small class="text-body-secondary">{{room.price}}</small></p>
+<div id="hotelCarousel" class="carousel slide carousel-fade mb-5 shadow-2xl rounded-4 overflow-hidden"
+    data-bs-ride="carousel">
+    <div class="carousel-inner" style="height: 500px;">
+        <div class="carousel-item active">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"
+                class="d-block w-100 h-100 object-fit-cover" alt="...">
+            <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+                <h1 class="display-2 fw-bold">Ваш ідеальний відпочинок</h1>
+                <p class="fs-4">Знайдіть найкращі готелі в Україні</p>
             </div>
         </div>
     </div>
 </div>
 
+<section class="py-5">
+    <h2 class="text-center fw-bold mb-5">Чому обирають нас?</h2>
+    <div class="row g-4 text-center">
+        <div class="col-md-4 animate__animated animate__zoomIn">
+            <div class="p-4 bg-white shadow-sm rounded-4"><i class="bi bi-shield-check fs-1 text-primary"></i>
+                <h4 class="mt-3">Безпека</h4>
+                <p class="text-muted">Перевірені помешкання та безпечні платежі.</p>
+            </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__zoomIn animate__delay-1s">
+            <div class="p-4 bg-white shadow-sm rounded-4"><i class="bi bi-headset fs-1 text-primary"></i>
+                <h4 class="mt-3">Підтримка 24/7</h4>
+                <p class="text-muted">Ми завжди на зв'язку, щоб допомогти вам.</p>
+            </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__zoomIn animate__delay-2s">
+            <div class="p-4 bg-white shadow-sm rounded-4"><i class="bi bi-tag fs-1 text-primary"></i>
+                <h4 class="mt-3">Кращі ціни</h4>
+                <p class="text-muted">Жодних прихованих комісій — чесні тарифи.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="py-5">
+    <h3 class="mb-4">Популярні варіанти</h3>
+    <div class="row g-4">
+        {% for room in rooms %}
+        {% include 'window.html' %}
+
+        <div class="col-lg-6 animate__animated animate__fadeInUp">
+            <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden group">
+                <div class="row g-0 h-100">
+                    <div class="col-md-5">
+                        <img src="{{ room.image.url }}" class="w-100 h-100 object-fit-cover">
+                    </div>
+                    <div class="col-md-7 p-4">
+                        <h4 class="fw-bold">{{ room.name }}</h4>
+                        <p class="text-muted">{{ room.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <span class="fs-4 fw-bold text-primary">{{ room.price }} грн</span>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal"
+                                data-bs-target="#bookModal{{ room.id }}">
+                                Забронювати
+                            </button>
+                            <a href="{% url 'book_page' room.id %}"
+                                class="btn btn-outline-dark rounded-pill px-4">Деталіньше</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
 
-{% endfor %}
+    </div>
+</div>
 {% endblock %}
