@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5 d-flex justify-content-center">
+    <div class="card shadow-lg border-0 rounded-4 p-5 text-center" style="max-width: 500px;">
+        
+        <div class="mb-4">
+            <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#198754" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                </svg>
+            </div>
+        </div>
+
+        <h2 class="fw-bold text-dark mb-3">Замовлення прийнято!</h2>
+        <p class="text-secondary mb-4">
+            Дякуємо! Ваша заявка на бронювання успішно отримана. Ми скоро зв'яжемося з вами для підтвердження деталей.
+        </p>
+
+        <div class="bg-light p-3 rounded-3 mb-4">
+            <p class="mb-0 text-muted small">Номер вашого замовлення</p>
+            <h5 class="fw-bold text-primary mb-0">#CONF-{{ room.id }}2026</h5>
+        </div>
+
+        <div class="d-grid">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                Повернутися до номерів
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
