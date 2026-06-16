@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="header">
+            <h2>Вхід у систему</h2>
+            <p>Будь ласка, введіть ваші дані</p>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="input-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                    {% for error in field.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">Увійти</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Базове центрування */
+    .login-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding: 20px;
+    }
+
+    /* Картка */
+    .login-card {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid #f0f0f0;
+    }
+
+    .header { text-align: center; margin-bottom: 30px; }
+    .header h2 { margin: 0; color: #111827; font-size: 24px; }
+    .header p { color: #6b7280; margin-top: 8px; }
+
+    /* Поля введення */
+    .input-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+    .input-group label { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #374151; }
+    
+    /* Важливо: додайте клас 'custom-input' до полів у Django form або зверніться до всіх input */
+    input {
+        padding: 12px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #2563eb;
+        background: #eff6ff;
+    }
+
+    /* Кнопка */
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: #111827;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+    }
+
+    .submit-btn:hover {
+        background: #000;
+        transform: translateY(-2px);
+    }
+
+    .error { color: #dc2626; font-size: 12px; margin-top: 5px; }
+</style>
+{% endblock %}

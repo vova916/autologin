@@ -29,7 +29,7 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name="Кімната", related_name="bookings")
     check_in = models.DateField(verbose_name="Дата заїзду")
     check_out = models.DateField(verbose_name="Дата виїзду")
-    customer = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Клієнт", related_name="bookings")
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Клієнт", related_name="bookings")
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
     
     def __str__(self):
@@ -41,17 +41,7 @@ class Booking(models.Model):
         verbose_name_plural = "Бронювання"
 
 
-class User(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Назва")
-    email = models.EmailField(verbose_name="Email")
-    phone = models.CharField(max_length=20, verbose_name="Телефон")
 
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = "Клієнт"
-        verbose_name_plural = "Клієнти"
     
     
 class Category(models.Model):

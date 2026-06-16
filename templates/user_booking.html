@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">Мої бронювання</h2>
+
+    {% if bookings %}
+        <div class="row g-4">
+            {% for booking in bookings %}
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 p-4 d-flex flex-md-row align-items-center gap-4">
+                    <div style="width: 150px; height: 100px;">
+                        <img src="{{ booking.room.image.url }}" class="w-100 h-100 object-fit-cover rounded-3" alt="Room">
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <h5 class="fw-bold mb-1">{{ booking.room.name }}</h5>
+                        <p class="text-gray-600 small mb-0">Дата: {{ booking.check_in }} — {{ booking.check_out }}</p>
+                        <span class="badge {% if booking.status == 'confirmed' %}bg-success{% else %}bg-warning{% endif %} rounded-pill mt-2">
+                            {{ booking.get_status_display }}
+                        </span>
+                    </div>
+
+                    <div class="text-md-end">
+                        <div class="fs-5 fw-bold text-primary">{{ booking.total_price }} грн</div>
+                        <button class="btn btn-outline-danger btn-sm rounded-pill mt-2">Скасувати</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            
+            <h1 class="text">У вас ще немає бронювань</h1>
+                
+            <a href="{% url 'home' %}" class="btn btn-dark rounded-pill">Знайти житло</a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .card { transition: transform 0.2s; }
+    .card:hover { transform: translateY(-5px); }
+    .badge { padding: 0.5em 1em; font-size: 0.75rem; }
+</style>
+{% endblock %}

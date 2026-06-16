@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, render
 from . models import Room, Booking, User, Category
+from django.contrib.auth.decorators import login_required
+
 
 
 def home(request):
@@ -29,7 +31,8 @@ def booking_page(request, room_id):
             phone=phone,
             room=room,
             check_in=check_in,
-            check_out=check_out
+            check_out=check_out,
+            customer=request.user if request.user.is_authenticated else None
             
             
             
@@ -48,7 +51,10 @@ def success(request):
     context = {"room":room}
     return render(request, 'book.html', context)
 
-    
-    
 
-
+@login_required
+def user_booking(request):
+    bookings = Booking.objects.filter(customer=request.user)
+    context = {"bookings": bookings}
+    
+    return render(request, 'user_booking.html', context)
