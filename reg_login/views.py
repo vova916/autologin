@@ -1,15 +1,26 @@
 from django.shortcuts import redirect, render
 from . models import Room, Booking, User, Category
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 
 def home(request):
     rooms = Room.objects.all()
     
+    capacity = request.GET.get('capacity')
+    check_in = request.GET.get('check_in')
+    check_out = request.GET.get('check_out')
+    
+    if capacity:
+        rooms = rooms.filter(capacity__gte=capacity)
+    if check_in and check_out: 
+        rooms = rooms.exclude(bookings__check_in__lt=check_out, bookings__check_out__gt=check_in)
     
     return render(request, 'index.html', {'title': 'Головна сторінка',
                                           'rooms': rooms})
+    
+    
+    
     
     
     
@@ -25,19 +36,24 @@ def booking_page(request, room_id):
         check_in=request.POST.get("check_in")
         check_out=request.POST.get("check_out")
         
-        booking = Booking.objects.create(
-            name=name,
-            email=email,
-            phone=phone,
-            room=room,
-            check_in=check_in,
-            check_out=check_out,
-            customer=request.user if request.user.is_authenticated else None
-            
-            
-            
-        )
-        return redirect('success')
+        
+        
+        exiting_bookings = Booking.objects.filter(room=room, check_in__lt=check_out, check_out__gt = check_in )
+        if exiting_bookings.exists():
+            messages.error(request, "На обрані дати апартаменти вже забронювані ")
+            return redirect('book_page',room_id=room.id)
+        else: 
+        
+            booking = Booking.objects.create(
+                name=name,
+                email=email,
+                phone=phone,
+                room=room,
+                check_in=check_in,
+                check_out=check_out,
+                customer=request.user if request.user.is_authenticated else None
+            )
+            return redirect('success')
         
        
         

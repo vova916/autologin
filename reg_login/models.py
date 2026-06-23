@@ -1,6 +1,7 @@
 import django
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 #Встановлення цін, вмістимості, особливостей кімнат/місць.
 
@@ -32,6 +33,7 @@ class Booking(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Клієнт", related_name="bookings")
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
     
+
     def __str__(self):
         return f"{self.customer} - {self.room.name} ({self.check_in} to {self.check_out})"
     

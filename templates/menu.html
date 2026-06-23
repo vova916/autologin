@@ -6,38 +6,66 @@
             </div>
             <span class="text-gray-900 tracking-tight">Booking UA</span>
         </a>
+        <form action="" method="get">
+            <div class="row my-4">
+                <div class="col-md-2">
+                    <label for="inputEmail4" class="form-label">Дата заїзду</label>
+                    <input value="{{ request.GET.check_in }}" required type="date" name="check_in" class="form-control"
+                        id="inputEmail4">
+                </div>
+                <div class="col-md-2">
+                    <label for="inputPassword4" class="form-label">Дата виїзду</label>
+                    <input value="{{ request.GET.check_out }}" required type="date" name="check_out"
+                        class="form-control" id="inputPassword4">
+                </div>
+                <div class="col-md-2">
+                    <label for="inputPassword4" class="form-label">Місткість</label>
+                    <input value="{{ request.GET.capacity }}" required type="number" min="0" max="15" name="capacity"
+                        class="form-control" id="inputPassword4">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary mt-4">Пошук</button>
+                </div>
+            </div>
+        </form>
 
         <ul class="navbar-nav d-flex flex-row align-items-center gap-3 m-0">
             <li class="nav-item">
-                <a class="nav-link text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium" href="{% url 'home' %}">Головна</a>
+                <a class="nav-link text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium"
+                    href="{% url 'home' %}">Головна</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium" href="#">Контакти</a>
+                <a class="nav-link text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium"
+                    href="#">Контакти</a>
             </li>
 
 
 
             <li class="nav-item">
-                <a class="btn btn-dark rounded-full px-4 py-2 fw-semibold shadow-sm hover:shadow-md transition-all" href="{% url 'login' %}">
+                <a class="btn btn-dark rounded-full px-4 py-2 fw-semibold shadow-sm hover:shadow-md transition-all"
+                    href="{% url 'login' %}">
                     Увійти
                 </a>
 
             </li>
             <li class="nav-item">
-                <a class="btn btn-dark rounded-full px-4 py-2 fw-semibold shadow-sm hover:shadow-md transition-all" href="{% url 'register' %}">
+                <a class="btn btn-dark rounded-full px-4 py-2 fw-semibold shadow-sm hover:shadow-md transition-all"
+                    href="{% url 'register' %}">
                     Зареєструватися
                 </a>
 
             </li>
             <li class="nav-item">
-                <a class="btn btn-dark rounded-full px-4 py-2 fw-semibold shadow-sm hover:shadow-md transition-all" href="{% url 'user_booking' %}">
+                <a class="btn btn-dark rounded-full px-4 py-2 fw-semibold shadow-sm hover:shadow-md transition-all"
+                    href="{% url 'user_booking' %}">
                     Мої Бронювання
                 </a>
+
 
             </li>
 
 
-            
+
 
         </ul>
     </div>
